@@ -243,6 +243,49 @@ function killActor (actor) {
 	// }
 }
 
+function checkPath (player, actor) {
+	var startIndex = actor.pattern.indexOf(player.pattern[0]) + actor.pattern.length
+	var count = 0
+	var partialMatchFound = true
+	player.pattern.every(function(keyCode, index, list) {
+		var match = keyCode === actor.pattern[(startIndex - index) % actor.pattern.length]
+		if (match) {
+			count += 1
+			if (count >= actor.pattern.length) {
+				return false
+			}
+
+			return true
+		} else {
+			partialMatchFound = false
+			return false
+		}
+	})
+
+	return partialMatchFound;
+}
+
+function matchPath(player, actor) {
+	var startIndex = actor.pattern.indexOf(player.pattern[0]) + actor.pattern.length
+	var count = 0
+	player.pattern.every(function(keyCode, index, list) {
+		var match = keyCode === actor.pattern[(startIndex - index) % actor.pattern.length]
+		if (match) {
+			count += 1
+			if (count >= actor.pattern.length) {
+				return false
+			}
+		}
+		return match
+	})
+
+	if (count >= actor.pattern.length) {
+		return true
+	}
+
+	return false
+}
+
 function onKeyUp(event) {
 	// act on player input
 	var acted = false
@@ -288,29 +331,32 @@ function onKeyUp(event) {
 		break
 	}
 
-	actorList.forEach(function(actor, index, list) {
-		if (index !== 0) {
-			// if (matchPath(player, actor)) {
+	if (acted) {
+		var partialMatchFound = false
 
-			// }
+		actorList.forEach(function(actor, index, list) {
+			// if not player
+			if (index !== 0) {
+				// check if player's path matches actor's path
+				if (matchPath(player, actor)) {
+					killActor(actor)
+					player.pattern = []
+					player.hp += 1
+				}
+
+				// check if player's path is sub path of actor's
+				if (checkPath(player, actor)) {
+					partialMatchFound = true
+				}
+			}
+		})
+
+		// if player's path is no sub path of any actor's path, delete path
+		if (!partialMatchFound) {
+			player.pattern = []
+			player.hp -= 1
 		}
-	})
-
-
-	// enemies act every time the player does
-	// if (acted) {
-	// 	for (var enemy in actorList) {
-	// 		// skip the player
-	// 		if (enemy == 0) {
-	// 			continue
-	// 		}
-
-	// 		var e = actorList[enemy]
-	// 		if (e != null) {
-	// 			aiAct(e)
-	// 		}
-	// 	}
-	// }
+	}
 
 	// draw actors in new positions
 	draw()
