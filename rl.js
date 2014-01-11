@@ -226,7 +226,7 @@ function moveTo(actor, dir) {
 	return true
 }
 
-function killActor (actor) {
+function killActor(actor) {
 	actorMap[actor.y + '_' + actor.x] = null
 	actorList.splice(actorList.indexOf(actor), 1)
 	// if (victim != player) {
@@ -242,7 +242,7 @@ function killActor (actor) {
 	// }
 }
 
-function checkPath (player, actor) {
+function checkPath(player, actor) {
 	var startIndex = actor.pattern.indexOf(player.pattern[0]) + actor.pattern.length
 	var count = 0
 	var partialMatchFound = true
