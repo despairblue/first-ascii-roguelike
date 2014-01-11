@@ -409,7 +409,7 @@ function createWalkTree() {
 }
 
 function aiAct(actor) {
-	moveTo(actor, keyCode2Direction[actor.pattern[actor.patternIndex % 4]])
+	moveTo(actor, keyCode2Direction[actor.pattern[actor.patternIndex % actor.pattern.length]])
 	actor.patternIndex += 1
 }
 
