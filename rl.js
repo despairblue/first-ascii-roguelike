@@ -205,7 +205,6 @@ function moveTo(actor, dir) {
 	// if (actorMap[newKey] != null && actorMap[newKey] != undefined) {
 	if (actorMap[newLocationKey]) {
 		//decrement hitpoints of the actor at the destination tile
-		// debugger
 		var victim = actorMap[newLocationKey]
 		victim.hp--
 
@@ -389,7 +388,6 @@ function draw() {
 
 function update() {
 	if (game.time.elapsedSecondsSince(lastMovement) > 2) {
-		console.log(game.time.elapsedSecondsSince(lastMovement))
 		lastMovement = game.time.now
 		runAI()
 		draw()
