@@ -405,7 +405,25 @@ function onKeyUp(event) {
 // TODO:
 
 function createWalkTree() {
-	return [Phaser.Keyboard.RIGHT, Phaser.Keyboard.DOWN, Phaser.Keyboard.LEFT, Phaser.Keyboard.UP]
+	var path = []
+	for (var i = PATTERN_LENGTH; i > 0; i--) {
+		switch (randomInt(4)) {
+		case 0:
+			path.push(Phaser.Keyboard.RIGHT)
+			break
+		case 1:
+			path.push(Phaser.Keyboard.LEFT)
+			break
+		case 2:
+			path.push(Phaser.Keyboard.UP)
+			break
+		case 3:
+			path.push(Phaser.Keyboard.DOWN)
+			break
+		}
+	}
+
+	return path
 }
 
 function aiAct(actor) {
