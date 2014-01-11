@@ -248,7 +248,9 @@ function onKeyUp(event) {
 			x: -1,
 			y: 0
 		})
-		player.pattern.unshift(event.keyCode)
+		if (acted) {
+			player.pattern.unshift(event.keyCode)
+		}
 		break
 
 	case Phaser.Keyboard.RIGHT:
@@ -256,7 +258,9 @@ function onKeyUp(event) {
 			x: 1,
 			y: 0
 		})
-		player.pattern.unshift(event.keyCode)
+		if (acted) {
+			player.pattern.unshift(event.keyCode)
+		}
 		break
 
 	case Phaser.Keyboard.UP:
@@ -264,7 +268,9 @@ function onKeyUp(event) {
 			x: 0,
 			y: -1
 		})
-		player.pattern.unshift(event.keyCode)
+		if (acted) {
+			player.pattern.unshift(event.keyCode)
+		}
 		break
 
 	case Phaser.Keyboard.DOWN:
@@ -272,24 +278,35 @@ function onKeyUp(event) {
 			x: 0,
 			y: 1
 		})
-		player.pattern.unshift(event.keyCode)
+		if (acted) {
+			player.pattern.unshift(event.keyCode)
+		}
 		break
 	}
 
-	// enemies act every time the player does
-	if (acted) {
-		for (var enemy in actorList) {
-			// skip the player
-			if (enemy == 0) {
-				continue
-			}
+	actorList.forEach(function(actor, index, list) {
+		if (index !== 0) {
+			// if (matchPath(player, actor)) {
 
-			var e = actorList[enemy]
-			if (e != null) {
-				aiAct(e)
-			}
+			// }
 		}
-	}
+	})
+
+
+	// enemies act every time the player does
+	// if (acted) {
+	// 	for (var enemy in actorList) {
+	// 		// skip the player
+	// 		if (enemy == 0) {
+	// 			continue
+	// 		}
+
+	// 		var e = actorList[enemy]
+	// 		if (e != null) {
+	// 			aiAct(e)
+	// 		}
+	// 	}
+	// }
 
 	// draw actors in new positions
 	draw()
