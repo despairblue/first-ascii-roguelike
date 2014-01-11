@@ -187,9 +187,6 @@ function moveTo(actor, dir) {
 }
 
 function onKeyUp(event) {
-	// draw map to overwrite previous actors positions
-	drawMap()
-
 	// act on player input
 	var acted = false
 	switch (event.keyCode) {
@@ -238,7 +235,7 @@ function onKeyUp(event) {
 	}
 
 	// draw actors in new positions
-	drawActors()
+	draw()
 }
 
 // TODO: implement
