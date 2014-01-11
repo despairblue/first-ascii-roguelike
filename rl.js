@@ -258,11 +258,30 @@ function killActor(actor) {
 }
 
 function checkPath(player, actor) {
-	var startIndex = actor.pattern.indexOf(player.pattern[0]) + actor.pattern.length
+	var partialMatchFound = false
+
+	// iterate over all possible start indices
+	actor.pattern.some(function(keyCode, index, list) {
+		if (keyCode === player.pattern[0]) {
+			if (_checkPath(player, actor, index)) {
+				partialMatchFound = true
+			}
+		}
+		return partialMatchFound
+	})
+
+	return partialMatchFound
+}
+
+function _checkPath(player, actor, startIndex) {
 	var count = 0
 	var partialMatchFound = true
+
+	startIndex += actor.pattern.length
+
 	player.pattern.every(function(keyCode, index, list) {
 		var match = keyCode === actor.pattern[(startIndex - index) % actor.pattern.length]
+		// console.debug(keyCode + ' === ' + actor.pattern[(startIndex - index) % actor.pattern.length] + ' = ' + match)
 		if (match) {
 			count += 1
 			if (count >= actor.pattern.length) {
