@@ -108,9 +108,9 @@ function initActors() {
 		var actor = {
 			x: 0,
 			y: 0,
-			pattern: createWalkTree(),
 			patternIndex: 0,
-			hp: e == 0 ? 3 : 1
+			pattern: e === 0 ? [] : createWalkTree(),
+			hp: e === 0 ? 3 : 1,
 		}
 		do {
 			// pick a random position that is both a floor and not occupied
