@@ -30,8 +30,11 @@ var actorMap
 
 // initialize phaser, call create() once done
 var game = new Phaser.Game(COLS * FONT * 0.6, ROWS * FONT, Phaser.AUTO, null, {
-	create: create
+	create: create,
+	update: update
 })
+
+var lastMovement = 0
 
 function create() {
 		// init keyboard commands
@@ -282,5 +285,10 @@ function aiAct(actor) {
 			align: 'center'
 		})
 		gameOver.anchor.setTo(0.5, 0.5)
+	}
+}
+function update() {
+	if (game.time.elapsedSecondsSince(lastMovement) > 2) {
+		console.log(game.time.elapsedSecondsSince(lastMovement))
 	}
 }
