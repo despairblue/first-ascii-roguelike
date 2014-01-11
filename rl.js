@@ -303,6 +303,7 @@ function matchPath(player, actor) {
 	var count = 0
 	player.pattern.every(function(keyCode, index, list) {
 		var match = keyCode === actor.pattern[(startIndex - index) % actor.pattern.length]
+		console.debug(keyCode + ' === ' + actor.pattern[(startIndex - index) % actor.pattern.length] + ' = ' + match)
 		if (match) {
 			count += 1
 			if (count >= actor.pattern.length) {
@@ -372,6 +373,7 @@ function onKeyUp(event) {
 			if (index !== 0) {
 				// check if player's path matches actor's path
 				if (matchPath(player, actor)) {
+					console.debug('Match: P:%o, a:%o ', player.pattern, actor.pattern)
 					killActor(actor)
 					player.pattern = []
 					player.hp += 1
@@ -380,6 +382,7 @@ function onKeyUp(event) {
 				// check if player's path is sub path of actor's
 				if (checkPath(player, actor)) {
 					partialMatchFound = true
+					console.debug('Check: P:%o, a:%o ', player.pattern, actor.pattern)
 				}
 			}
 		})
