@@ -259,14 +259,10 @@ function onKeyUp(event) {
 	draw()
 }
 
-// TODO: implement
+// TODO:
+
 function createWalkTree() {
-	return [
-		Phaser.Keyboard.RIGHT,
-		Phaser.Keyboard.DOWN,
-		Phaser.Keyboard.LEFT,
-		Phaser.Keyboard.UP
-	]
+	return [Phaser.Keyboard.RIGHT, Phaser.Keyboard.DOWN, Phaser.Keyboard.LEFT, Phaser.Keyboard.UP]
 }
 
 function aiAct(actor) {
