@@ -211,7 +211,7 @@ function moveTo(actor, dir) {
 
 		// if it's dead remove its reference
 		if (victim.hp == 0) {
-			killActor(newLocationKey, victim)
+			killActor(victim)
 		}
 	} else {
 		// remove reference to the actor's old position
@@ -227,8 +227,8 @@ function moveTo(actor, dir) {
 	return true
 }
 
-function killActor (newLocationKey, actor) {
-	actorMap[newLocationKey] = null
+function killActor (actor) {
+	actorMap[actor.y + '_' + actor.x] = null
 	actorList.splice(actorList.indexOf(actor), 1)
 	// if (victim != player) {
 	// 	livingEnemies--
