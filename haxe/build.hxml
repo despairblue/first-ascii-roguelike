@@ -1,4 +1,0 @@
--main RoguelikeTutorial
--cp lib
--cp src
--js bin\rl.js
