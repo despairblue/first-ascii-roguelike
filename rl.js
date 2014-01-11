@@ -107,6 +107,8 @@ function initActors() {
 		var actor = {
 			x: 0,
 			y: 0,
+			pattern: createWalkTree(),
+			patternIndex: 0,
 			hp: e == 0 ? 3 : 1
 		}
 		do {
@@ -238,6 +240,16 @@ function onKeyUp(event) {
 	drawActors()
 }
 
+// TODO: implement
+function createWalkTree() {
+	return [
+		Phaser.Keyboard.RIGHT,
+		Phaser.Keyboard.DOWN,
+		Phaser.Keyboard.LEFT,
+		Phaser.Keyboard.UP
+	]
+}
+
 function aiAct(actor) {
 	var directions = [{
 		x: -1,
@@ -252,43 +264,32 @@ function aiAct(actor) {
 		x: 0,
 		y: 1
 	}]
-	var dx = player.x - actor.x
-	var dy = player.y - actor.y
+	var directions2 = {}
+	directions2[Phaser.Keyboard.LEFT] = directions[0]
+	directions2[Phaser.Keyboard.RIGHT] = directions[1]
+	directions2[Phaser.Keyboard.UP] = directions[2]
+	directions2[Phaser.Keyboard.DOWN] = directions[3]
 
-	// if player is far away, walk randomly
-	if (Math.abs(dx) + Math.abs(dy) > 6) {
-		// try to walk in random directions until you succeed once
-		while (!moveTo(actor, directions[randomInt(directions.length)])) {}
-	}
-	// otherwise walk towards player
-	if (Math.abs(dx) > Math.abs(dy)) {
-		if (dx < 0) {
-			// left
-			moveTo(actor, directions[0])
-		} else {
-			// right
-			moveTo(actor, directions[1])
-		}
-	} else {
-		if (dy < 0) {
-			// up
-			moveTo(actor, directions[2])
-		} else {
-			// down
-			moveTo(actor, directions[3])
-		}
-	}
-	if (player.hp < 1) {
-		// game over message
-		var gameOver = game.add.text(game.world.centerX, game.world.centerY, 'Game Over\nCtrl+r to restart', {
-			fill: '#e22',
-			align: 'center'
-		})
-		gameOver.anchor.setTo(0.5, 0.5)
-	}
+	moveTo(actor, directions2[actor.pattern[actor.patternIndex % 4]])
+	actor.patternIndex += 1
 }
+
+function runAI() {
+	actorList.forEach(function(enemy, index, actorList) {
+		aiAct(enemy)
+	})
+}
+
+function draw() {
+	drawMap()
+	drawActors()
+}
+
 function update() {
 	if (game.time.elapsedSecondsSince(lastMovement) > 2) {
 		console.log(game.time.elapsedSecondsSince(lastMovement))
+		lastMovement = game.time.now
+		runAI()
+		draw()
 	}
 }
