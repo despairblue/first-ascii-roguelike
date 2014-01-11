@@ -274,6 +274,9 @@ function aiAct(actor) {
 
 function runAI() {
 	actorList.forEach(function(enemy, index, actorList) {
+		if (index === 0) {
+			return
+		}
 		aiAct(enemy)
 	})
 }
