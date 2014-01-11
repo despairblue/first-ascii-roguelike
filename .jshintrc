@@ -1,0 +1,13 @@
+{
+  "browser": true,
+  "indent": 2,
+  "quotmark": "single",
+  "trailing": true,
+  "smarttabs": true,
+  "globals": {
+    "Phaser": false
+  },
+  "debug": true,
+  "asi": true
+}
+
