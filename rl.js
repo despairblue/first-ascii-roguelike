@@ -298,6 +298,9 @@ function _checkPath(player, actor, startIndex) {
 	return partialMatchFound;
 }
 
+// fug: opposite of a bug
+//      code that works, that shouldn't work
+
 function matchPath(player, actor) {
 	var startIndex = actor.pattern.indexOf(player.pattern[0]) + actor.pattern.length
 	var count = 0
