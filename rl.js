@@ -379,7 +379,8 @@ function onKeyUp(event) {
 					console.debug('Match: P:%o, a:%o ', player.pattern, actor.pattern)
 					killActor(actor)
 					player.pattern = []
-					player.hp += 1
+					// fix: don't take life if successfully matched
+					player.hp += 2
 				}
 
 				// check if player's path is sub path of actor's
