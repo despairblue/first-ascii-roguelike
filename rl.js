@@ -200,30 +200,18 @@ function moveTo(actor, dir) {
 	}
 
 	// moves actor to the new location
-	var newKey = (actor.y + dir.y) + '_' + (actor.x + dir.x)
+	var newLocationKey = (actor.y + dir.y) + '_' + (actor.x + dir.x)
 	// if the destination tile has an actor in it
 	// if (actorMap[newKey] != null && actorMap[newKey] != undefined) {
-	if (actorMap[newKey]) {
+	if (actorMap[newLocationKey]) {
 		//decrement hitpoints of the actor at the destination tile
 		// debugger
-		var victim = actorMap[newKey]
+		var victim = actorMap[newLocationKey]
 		victim.hp--
 
 		// if it's dead remove its reference
 		if (victim.hp == 0) {
-			actorMap[newKey] = null
-			actorList.splice(actorList.indexOf(victim), 1)
-			if (victim != player) {
-				livingEnemies--
-				if (livingEnemies == 0) {
-					// victory message
-					var victory = game.add.text(game.world.centerX, game.world.centerY, 'Victory!\nCtrl+r to restart', {
-						fill: '#2e2',
-						align: 'center'
-					})
-					victory.anchor.setTo(0.5, 0.5)
-				}
-			}
+			killActor(newLocationKey, victim)
 		}
 	} else {
 		// remove reference to the actor's old position
@@ -237,6 +225,22 @@ function moveTo(actor, dir) {
 		actorMap[actor.y + '_' + actor.x] = actor
 	}
 	return true
+}
+
+function killActor (newLocationKey, actor) {
+	actorMap[newLocationKey] = null
+	actorList.splice(actorList.indexOf(actor), 1)
+	// if (victim != player) {
+	// 	livingEnemies--
+	// 	if (livingEnemies == 0) {
+	// 		// victory message
+	// 		var victory = game.add.text(game.world.centerX, game.world.centerY, 'Victory!\nCtrl+r to restart', {
+	// 			fill: '#2e2',
+	// 			align: 'center'
+	// 		})
+	// 		victory.anchor.setTo(0.5, 0.5)
+	// 	}
+	// }
 }
 
 function onKeyUp(event) {
