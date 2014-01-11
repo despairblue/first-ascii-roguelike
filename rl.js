@@ -433,4 +433,10 @@ function update() {
 		runAI()
 		draw()
 	}
+	if (game.time.elapsedSecondsSince(lastSpawn) > SPAWN_TIME) {
+		lastSpawn = game.time.now
+		actorList.push(createActor())
+		// PATTERN_LENGTH += 1
+		MOVE_TIME -= 0.1
+	}
 }
