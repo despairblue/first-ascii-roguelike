@@ -56,16 +56,15 @@ keyCode2Direction[Phaser.Keyboard.RIGHT] = directions[1]
 keyCode2Direction[Phaser.Keyboard.UP] = directions[2]
 keyCode2Direction[Phaser.Keyboard.DOWN] = directions[3]
 
-// points to each actor in its position, for quick searching
-var actorMap
-
 // initialize phaser, call create() once done
 var game = new Phaser.Game(COLS * FONT * 0.6, ROWS * FONT, Phaser.AUTO, null, {
 	create: create,
 	update: update
 })
 
-var lastMovement = 0
+// points to each actor in its position, for quick searching
+var actorMap
+
 
 function create() {
 	// init keyboard commands
