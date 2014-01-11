@@ -150,11 +150,44 @@ function initActors() {
 }
 
 function drawActors() {
-	for (var a in actorList) {
-		if (actorList[a] != null && actorList[a].hp > 0) {
-			gameScreen[actorList[a].y][actorList[a].x].content = a == 0 ? '' + player.hp : mapKey.enemy
+	actorList.forEach(function(e, i, l) {
+		if (i === 0) {
+			// draw current player path
+			currentPos = {
+				y: e.y,
+				x: e.x
+			}
+			e.pattern.forEach(function(keyCode, i, list) {
+				doDraw = false
+				switch (keyCode) {
+				case Phaser.Keyboard.LEFT:
+					currentPos.x += 1
+					doDraw = true
+					break
+				case Phaser.Keyboard.RIGHT:
+					currentPos.x -= 1
+					doDraw = true
+					break
+				case Phaser.Keyboard.UP:
+					currentPos.y += 1
+					doDraw = true
+					break
+				case Phaser.Keyboard.DOWN:
+					currentPos.y -= 1
+					doDraw = true
+					break
+				}
+				if (doDraw) {
+					gameScreen[currentPos.y][currentPos.x].content = mapKey.path
+				}
+			})
+			// draw player
+			gameScreen[e.y][e.x].content = e.hp
+		} else {
+			// draw enemy
+			gameScreen[e.y][e.x].content = mapKey.enemy
 		}
-	}
+	})
 }
 
 function canGo(actor, dir) {
@@ -216,6 +249,7 @@ function onKeyUp(event) {
 			x: -1,
 			y: 0
 		})
+		player.pattern.unshift(event.keyCode)
 		break
 
 	case Phaser.Keyboard.RIGHT:
@@ -223,6 +257,7 @@ function onKeyUp(event) {
 			x: 1,
 			y: 0
 		})
+		player.pattern.unshift(event.keyCode)
 		break
 
 	case Phaser.Keyboard.UP:
@@ -230,6 +265,7 @@ function onKeyUp(event) {
 			x: 0,
 			y: -1
 		})
+		player.pattern.unshift(event.keyCode)
 		break
 
 	case Phaser.Keyboard.DOWN:
@@ -237,6 +273,7 @@ function onKeyUp(event) {
 			x: 0,
 			y: 1
 		})
+		player.pattern.unshift(event.keyCode)
 		break
 	}
 
