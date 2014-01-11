@@ -388,6 +388,15 @@ function onKeyUp(event) {
 					partialMatchFound = true
 					console.debug('Check: P:%o, a:%o ', player.pattern, actor.pattern)
 				}
+
+				if (player.hp < 1) {
+					// game over message
+					var gameOver = game.add.text(game.world.centerX, game.world.centerY, 'Game Over\nCtrl+r to restart', {
+						fill: '#e22',
+						align: "center"
+					});
+					gameOver.anchor.setTo(0.5, 0.5);
+				}
 			}
 		})
 
