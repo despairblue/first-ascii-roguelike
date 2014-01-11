@@ -8,6 +8,14 @@ var COLS = 30
 // number of actors per level, including player
 var ACTORS = 2
 
+var PATTERN_LENGTH = 4
+var MOVE_TIME = 2
+var SPAWN_TIME = 10
+
+// timers
+var lastMovement = 0
+var lastSpawn = 0
+
 // the structure of the map
 var map
 
@@ -19,6 +27,7 @@ var player
 var actorList
 var livingEnemies
 
+// map tiles
 var mapKey = {
 	empty: ' ',
 	enemy: 'E',
@@ -26,6 +35,7 @@ var mapKey = {
 	path: '.'
 }
 
+// direactios the keys are mapped to
 var directions = [{
 	x: -1,
 	y: 0
