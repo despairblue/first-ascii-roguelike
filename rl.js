@@ -6,7 +6,7 @@ var ROWS = 20
 var COLS = 30
 
 // number of actors per level, including player
-var ACTORS = 10
+var ACTORS = 2
 
 // the structure of the map
 var map
@@ -58,29 +58,28 @@ var game = new Phaser.Game(COLS * FONT * 0.6, ROWS * FONT, Phaser.AUTO, null, {
 var lastMovement = 0
 
 function create() {
-		// init keyboard commands
-		game.input.keyboard.addCallbacks(null, null, onKeyUp)
+	// init keyboard commands
+	game.input.keyboard.addCallbacks(null, null, onKeyUp)
 
-		// initialize map
-		initMap()
+	// initialize map
+	initMap()
 
-		// initialize screen
-		gameScreen = []
-		for (var y = 0; y < ROWS; y++) {
-			var newRow = []
-			gameScreen.push(newRow)
-			for (var x = 0; x < COLS; x++) {
-				newRow.push(initCell('', x, y))
-			}
+	// initialize screen
+	gameScreen = []
+	for (var y = 0; y < ROWS; y++) {
+		var newRow = []
+		gameScreen.push(newRow)
+		for (var x = 0; x < COLS; x++) {
+			newRow.push(initCell('', x, y))
 		}
-
-		// initialize actors
-		initActors()
-
-		// draw level
-		drawMap()
-		drawActors()
 	}
+
+	// initialize actors
+	initActors()
+
+	// draw level
+	draw()
+}
 
 function initCell(chr, x, y) {
 	// add a single cell in a given position to the ascii display
