@@ -22,7 +22,8 @@ var livingEnemies
 var mapKey = {
 	empty: ' ',
 	enemy: 'E',
-	wall: '#'
+	wall: '#',
+	path: '.'
 }
 
 // points to each actor in its position, for quick searching
