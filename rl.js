@@ -26,6 +26,26 @@ var mapKey = {
 	path: '.'
 }
 
+var directions = [{
+	x: -1,
+	y: 0
+}, {
+	x: 1,
+	y: 0
+}, {
+	x: 0,
+	y: -1
+}, {
+	x: 0,
+	y: 1
+}]
+
+var keyCode2Direction = {}
+keyCode2Direction[Phaser.Keyboard.LEFT] = directions[0]
+keyCode2Direction[Phaser.Keyboard.RIGHT] = directions[1]
+keyCode2Direction[Phaser.Keyboard.UP] = directions[2]
+keyCode2Direction[Phaser.Keyboard.DOWN] = directions[3]
+
 // points to each actor in its position, for quick searching
 var actorMap
 
@@ -250,26 +270,7 @@ function createWalkTree() {
 }
 
 function aiAct(actor) {
-	var directions = [{
-		x: -1,
-		y: 0
-	}, {
-		x: 1,
-		y: 0
-	}, {
-		x: 0,
-		y: -1
-	}, {
-		x: 0,
-		y: 1
-	}]
-	var directions2 = {}
-	directions2[Phaser.Keyboard.LEFT] = directions[0]
-	directions2[Phaser.Keyboard.RIGHT] = directions[1]
-	directions2[Phaser.Keyboard.UP] = directions[2]
-	directions2[Phaser.Keyboard.DOWN] = directions[3]
-
-	moveTo(actor, directions2[actor.pattern[actor.patternIndex % 4]])
+	moveTo(actor, keyCode2Direction[actor.pattern[actor.patternIndex % 4]])
 	actor.patternIndex += 1
 }
 
