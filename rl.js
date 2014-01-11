@@ -428,7 +428,7 @@ function draw() {
 }
 
 function update() {
-	if (game.time.elapsedSecondsSince(lastMovement) > 2) {
+	if (game.time.elapsedSecondsSince(lastMovement) > MOVE_TIME) {
 		lastMovement = game.time.now
 		runAI()
 		draw()
