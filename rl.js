@@ -153,7 +153,7 @@ function moveTo(actor, dir) {
 		// if it's dead remove its reference
 		if (victim.hp == 0) {
 			actorMap[newKey] = null
-			actorList[actorList.indexOf(victim)] = null
+			actorList.splice(actorList.indexOf(victim), 1)
 			if (victim != player) {
 				livingEnemies--
 				if (livingEnemies == 0) {
