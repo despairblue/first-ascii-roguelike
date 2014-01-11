@@ -119,24 +119,30 @@ function randomInt(max) {
 	return Math.floor(Math.random() * max)
 }
 
+function createActor(player) {
+	// create new actor
+	var actor = {
+		x: 0,
+		y: 0,
+		patternIndex: 0,
+		pattern: player ? [] : createWalkTree(),
+		hp: player ? 3 : 1,
+	}
+	do {
+		// pick a random position that is both a floor and not occupied
+		actor.y = randomInt(ROWS)
+		actor.x = randomInt(COLS)
+	} while (map[actor.y][actor.x] == mapKey.wall || actorMap[actor.y + '_' + actor.x] != null)
+
+	return actor
+}
+
 function initActors() {
 	// create actors at random locations
 	actorList = []
 	actorMap = {}
 	for (var e = 0; e < ACTORS; e++) {
-		// create new actor
-		var actor = {
-			x: 0,
-			y: 0,
-			patternIndex: 0,
-			pattern: e === 0 ? [] : createWalkTree(),
-			hp: e === 0 ? 3 : 1,
-		}
-		do {
-			// pick a random position that is both a floor and not occupied
-			actor.y = randomInt(ROWS)
-			actor.x = randomInt(COLS)
-		} while (map[actor.y][actor.x] == mapKey.wall || actorMap[actor.y + '_' + actor.x] != null)
+		actor = createActor(e === 0 ? true : false)
 
 		// add references to the actor to the actors list & map
 		actorMap[actor.y + '_' + actor.x] = actor
